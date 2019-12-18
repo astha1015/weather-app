@@ -11,7 +11,6 @@ class Weather extends Component {
         </div>
         <div className="row">
           {param
-            .map(info => ({ ...info }))
             .map((row, index) => (
               <WeatherCard key={index} {...row}></WeatherCard>
             ))}
