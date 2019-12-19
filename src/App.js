@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import Weather from './Weather';
 
 class App extends Component{
-    render(){
-        const param = [
+    state = {
+        param: [
             {
                 day: 'Mon',
                 image: './images/cloudy.png',
                 climate: 'cloudy',
                 maxtemp: 80,
                 mintemp: 40,
-
             },
             {
                 day: 'Tue',
@@ -60,10 +59,23 @@ class App extends Component{
                 mintemp: 72,
 
             },
-        ]
-        return(
+
+        ],
+    }
+    removeforecast = index =>{
+        const { param } = this.state
+
+        this.setState({
+            param: param.filter((param,i) => {
+                return i !== index
+            }),
+        })
+    }
+    render(){
+        const { param } = this.state
+        return (
             <div className='App'>
-                <Weather param={param}/>
+                <Weather param={param} removeforecast={this.removeforecast} />
             </div>
         );
     }

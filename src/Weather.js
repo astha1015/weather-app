@@ -3,7 +3,7 @@ import WeatherCard from "./WeatherCard";
 
 class Weather extends Component {
   render() {
-    const { param } = this.props;
+    const { param, removeforecast } = this.props
     return (
       <div className="container">
         <div className="row">
@@ -12,9 +12,14 @@ class Weather extends Component {
         <div className="row">
           {param
             .map((row, index) => (
-              <WeatherCard key={index} {...row}></WeatherCard>
+              <div className="text-center col-sm-2 col-md-2">
+              <WeatherCard key={index} {...row} removeforecast={removeforecast}>
+              </WeatherCard>
+              <button onClick={() => removeforecast(index)}>Delete</button>
+              </div>
             ))}
         </div>
+        
       </div>
     );
   }
