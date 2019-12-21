@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Weather from './Weather';
+import Form from './Form'
 
 const App = props =>{
     const [param, setParam] = useState(
-        {
-            param: [
+        [
                 {
                     day: 'Mon',
                     image: './images/cloudy.png',
@@ -62,23 +62,34 @@ const App = props =>{
                 },
     
             ],
-        }
+        
     );
     
-    const removeforecast = index => {
-        const param = {param};
-        
-        setParam({
-            param: param.filter((param,i) => {
+    const removeforecast = index => {  
+        setParam(
+            param.filter((param,i) => {
                 return i !== index
             }),
-        }) 
+        ) 
     }
+
+    const handleSubmit = (inputs) =>{
+        setParam(params =>{
+            return[...param,inputs]
+        })   
+        
+
+    }
+    
+
+
+
 
 
     return (
-        <div className='App'>
+        <div className='container'>
                 <Weather param={param} removeforecast={removeforecast} />
+                <Form handleSubmit={handleSubmit} ></Form>
         </div>
         );
 
