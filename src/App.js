@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import Weather from './Weather';
 import Form from './Form'
 
-<<<<<<< HEAD
 const App = props =>{
     const [param, setParam] = useState(
         [
-=======
-const App = props => {
-    const [param, setParam] = useState([
->>>>>>> bcbb5da785c3bcc09c5da32540abbc2ae0c15d89
                 {
                     day: 'Mon',
                     image: './images/cloudy.png',
@@ -66,7 +61,6 @@ const App = props => {
     
                 },
     
-<<<<<<< HEAD
             ],
         
     );
@@ -90,12 +84,6 @@ const App = props => {
 
 
 
-=======
-            ]
-    );
-    
-    const removeforecast = index => setParam(param.filter((param,i) => i !== index))
->>>>>>> bcbb5da785c3bcc09c5da32540abbc2ae0c15d89
 
 
     return (
