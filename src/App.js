@@ -65,13 +65,7 @@ const App = props =>{
         
     );
     
-    const removeforecast = index => {  
-        setParam(
-            param.filter((param,i) => {
-                return i !== index
-            }),
-        ) 
-    }
+    const removeforecast = index => setParam(param.filter((param,i) => i !== index))
 
     const handleSubmit = (inputs) =>{
         setParam(params =>{
