@@ -74,6 +74,7 @@ const App = props =>{
     }
 
     const handleSubmit = (inputs) =>{
+        console.log(inputs)
         setParam(params =>{
             return[...param,inputs]
         })   
