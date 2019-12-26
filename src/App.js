@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Weather from './Weather';
-import Form from './Form'
+import Form from './Form';
 
 const App = props =>{
     const [param, setParam] = useState(

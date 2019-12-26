@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react'
-
-
-
-
+import React, { useState, useEffect, useRef } from 'react'
+import Cleave from 'cleave.js/react';
 
 const Form = (props) =>{
     const useInputForm = (validate) =>{
@@ -32,6 +29,7 @@ const Form = (props) =>{
             })
             
         }
+        
     
         return {
         onFormSubmit,
@@ -40,8 +38,22 @@ const Form = (props) =>{
         errors
         };
     }
-    
-   function validate(inputs){
+
+    function getImage(climate){
+        let image = './images/sunny.png'
+        if (climate == 1){
+            image = './images/sunny.png'
+        }
+        if (climate == 2){
+            image = './images/rain.png'
+        }
+        if (climate == 3){
+            image = './images/cloudy.png'
+        }
+        return image;
+    }
+
+    function validate(inputs){
     let errors = {};
     if (!inputs.day) {
       errors.day = 'Day is required';
@@ -49,20 +61,25 @@ const Form = (props) =>{
       errors.day = 'Invalid day';
     }
     if (!inputs.maxtemp) {
-        errors.maxtemp = 'Maximuim temperature is required';
-      } else if (!/^[0-9]+$/.test(inputs.maxtemp)) {
+        errors.maxtemp = 'Maximum temperature is required';
+      } else if (!/[\d]*,?[\d]*/.test(inputs.maxtemp)) {
         errors.maxtemp = 'Invalid temperature';
     }
-      if (!inputs.mintemp) {
-        errors.mintemp = 'Maximuim temperature is required';
-      } else if (!/^[0-9]+$/.test(inputs.mintemp)) {
+
+
+    if (!inputs.mintemp) {
+        errors.mintemp = 'Minimum temperature is required';
+      } else if (!/[\d]*,?[\d]*/.test(inputs.mintemp)) {
         errors.mintemp = 'Invalid temperature';
     }
     return errors;
    }
     
-    
+    const [climate, setClimate]= useState()
+    const imageSource = getImage(climate)
     const {inputs, errors, handleInputChange, onFormSubmit} = useInputForm(validate)
+
+
 
     return(
         <div className='Container'>
@@ -78,32 +95,33 @@ const Form = (props) =>{
                 onChange={handleInputChange}
                 required />
             {errors.day && (<p className="text-danger">{errors.day}</p>)}
+            <label>Select a Weather</label>
+            <select placeholder = 'Select a Weather'onChange={(event) => {setClimate(Number(event.target.value))}}>
+                <option value={1}>Sunny</option>
+                <option value={2}>Rainy</option>
+                <option value={3}>Cloudy</option>
+            </select><br />
             <label>Image</label>
-            <input 
-                type="file"
-                name="image"
-                alt="image"
-                onChange={handleInputChange} />
-            <label>Climate</label>
-            <input 
-                type="text"
-                name="climate"
-                value={inputs.climate}
-                onChange={handleInputChange} />
+            <img className='formImage'
+                src = {imageSource} />
+
+            <br />
+
+
             <label>Maximum Temperature</label>
-            <input
+            <Cleave 
                 className={`input ${errors.maxtemp }`}
-                type = "text"
                 name = "maxtemp"
-                value = {inputs.maxtemp || ''}
-                onChange={handleInputChange} 
-                required/>
+                options={{numeral: true, }}
+                value={inputs.maxtemp || ''}
+                onChange={handleInputChange} />
             {errors.maxtemp && (<p className="text-danger">{errors.maxtemp}</p>)}
             <label>Minimum Temperature</label>
-            <input
+            <Cleave
                 className={`input ${errors.mintemp }`}
                 type = "text"
                 name = "mintemp"
+                options={{numeral: true, }}
                 value = {inputs.mintemp || ''}
                 onChange={handleInputChange} 
                 required/>

@@ -1,5 +1,6 @@
 import React from "react";
 import WeatherCard from "./WeatherCard";
+import {Motion, spring} from 'react-motion';
 
 const Weather = (props) => (
 
@@ -11,7 +12,26 @@ const Weather = (props) => (
       <div className="row"> {Array.from(props.param).map((row, index) => (
               <div className="text-center col-sm-2 col-md-2">
                 <WeatherCard key={index} {...row}></WeatherCard>
-                <button onClick={() => props.removeforecast(index)}>Delete</button>
+                
+                <Motion 
+                    defaultStyle={{x:-200, opacity: 0}}
+                    style={{x:spring(0), opacity:spring(1)}}
+                >
+                    {style => (
+                        <button 
+                          style={{
+                              transform: `translateX(${style.x}px)`,
+                              opacity: style.opacity, 
+                          }}
+                          onClick={() => props.removeforecast(index)}>
+                            Delete
+                        </button>
+
+                    )}
+                
+                </Motion>
+                
+
               </div>
             )
           )}

@@ -40,6 +40,11 @@ body {
 main {
   display: block; }
 
+
+.formImage{
+  width: 50px;
+  height: 50px;
+}
 /**
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
